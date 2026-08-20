@@ -30,15 +30,12 @@ defmodule Solutions.Day1 do
   @starting_point 50
   @dial_size 100
 
-  defp calc_answer(input, acc \\ @starting_point, counter \\ 0) do
-    case input do
-      [] ->
-        counter
-
-      [rotation | remaining] ->
-        {new_pos, new_counter} = rotate(acc, rotation, counter)
-        calc_answer(remaining, new_pos, new_counter)
-    end
+  defp calc_answer(rotations) do
+    rotations
+    |> Enum.reduce({@starting_point, 0}, fn rotation, {position, counter} ->
+      rotate(position, rotation, counter)
+    end)
+    |> elem(1)
   end
 
   defp rotate(position, {:left, amount}, counter) do
@@ -52,4 +49,15 @@ defmodule Solutions.Day1 do
     new_counter = if new_pos == 0, do: counter + 1, else: counter
     {new_pos, new_counter}
   end
+
+  # defp calc_answer(input, acc \\ @starting_point, counter \\ 0) do
+  #   case input do
+  #     [] ->
+  #       counter
+  #
+  #     [rotation | remaining] ->
+  #       {new_pos, new_counter} = rotate(acc, rotation, counter)
+  #       calc_answer(remaining, new_pos, new_counter)
+  #   end
+  # end
 end
