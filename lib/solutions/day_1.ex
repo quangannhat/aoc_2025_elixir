@@ -38,16 +38,17 @@ defmodule Solutions.Day1 do
     |> elem(1)
   end
 
-  defp rotate(position, {:left, amount}, counter) do
-    new_pos = Integer.mod(position - amount, @dial_size)
-    new_counter = if new_pos == 0, do: counter + 1, else: counter
-    {new_pos, new_counter}
-  end
+  defp rotate(position, {direction, amount}, counter) do
+    movement =
+      case direction do
+        :left -> -amount
+        :right -> amount
+      end
 
-  defp rotate(position, {:right, amount}, counter) do
-    new_pos = Integer.mod(position + amount, @dial_size)
-    new_counter = if new_pos == 0, do: counter + 1, else: counter
-    {new_pos, new_counter}
+    new_position = Integer.mod(position + movement, @dial_size)
+    new_counter = counter + if(new_position == 0, do: 1, else: 0)
+
+    {new_position, new_counter}
   end
 
   # defp calc_answer(input, acc \\ @starting_point, counter \\ 0) do
