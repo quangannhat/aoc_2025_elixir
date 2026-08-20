@@ -1,6 +1,6 @@
 defmodule Solutions.Day1 do
   def solve do
-    with {:ok, text} <- File.read(Solutions.input_path()) do
+    with {:ok, text} <- File.read(Solutions.input_path(1)) do
       text
       |> parse_input()
       |> calc_answer()

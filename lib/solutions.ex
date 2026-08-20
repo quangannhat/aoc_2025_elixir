@@ -1,7 +1,7 @@
 defmodule Solutions do
-  @input_dir Path.join(__DIR__, "solutions")
+  @solutions_dir Path.join(__DIR__, "solutions")
 
-  def input_path(filename \\ "input.txt") do
-    Path.join(@input_dir, filename)
+  def input_path(day, filename \\ "input.txt") do
+    Path.join([@solutions_dir, "day_#{day}", filename])
   end
 end
