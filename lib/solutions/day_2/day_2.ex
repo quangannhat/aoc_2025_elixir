@@ -20,25 +20,15 @@ defmodule Solutions.Day2 do
   end
 
   defp calc_answer(ranges) do
-    Enum.reduce(ranges, 0, fn range, total ->
-      range_sum =
-        range
-        |> Enum.to_list()
-        |> sum_of_invalid()
-
-      total + range_sum
-    end)
+    ranges
+    |> Enum.map(&sum_of_invalids/1)
+    |> Enum.sum()
   end
 
-  defp sum_of_invalid(parsed_range, sum \\ 0) do
-    case parsed_range do
-      [] ->
-        sum
-
-      [current | rest] ->
-        new_sum = if invalid_id?(current), do: sum + current, else: sum
-        sum_of_invalid(rest, new_sum)
-    end
+  defp sum_of_invalids(range) do
+    Enum.reduce(range, 0, fn id, sum ->
+      if invalid_id?(id), do: sum + id, else: sum
+    end)
   end
 
   defp invalid_id?(num) do
